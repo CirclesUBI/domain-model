@@ -5,7 +5,7 @@ Concepts in grey will not be included in the MVP version of the platform.
 ## Preliminaries
 Basic understanding about blockchains, in particular smart contract platforms like Ethereum
 ## System Overview
-The Circles system consists of [personal currencies](#personal-currencies), [account holders](#account-holder), and [social graph](#social-graph), faciliated through a blockchain-linked application. Each user is associated with a unique, personal currency. At regular intervals, equal units of personal currency are created and added to the account of each user in the system. Users choose whose currency to accept by forming virtual relationships called [trust connections](#trust-connections). These connections also make longer paths of exchange possible, by serving as intermediary parties for [transitive transfers](#transitive-transfer).
+The Circles system consists of [personal currencies](#personal-currencies), [account holders](#account-holder), [validators](#validators), and a [social graph](#social-graph), faciliated through a blockchain-linked application. Each user is associated with a unique, personal currency. At regular intervals, equal units of personal currency are created and added to the account of each user in the system. Users choose whose currency to accept by forming virtual relationships called [trust connections](#trust-connections). These connections also make longer paths of exchange possible, by serving as intermediary parties for [transitive transfers](#transitive-transfer). Account holders may also utilize validators to automatically trust the currencies validated by that validator. The entirety of the system's connections form the Circles social graph.
 
 
 ## Social graph
