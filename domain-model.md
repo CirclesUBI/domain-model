@@ -2,86 +2,41 @@
 Old version: https://drive.google.com/open?id=0B-83nTx9NXI6TXg5azNlM3RBZ2s 
 
 Concepts in grey will not be included in the MVP version of the platform.
-## Concept Definitions
+## Definitions
 ### System
-The Circles system contains actors users, organisations, and groups, as well as a blockchain with transactions.
+The Circles system consists of [personal currencies](#personal-currencies), [account holders](#account-holders) and a [social graph](#social-graph), as well as a blockchain with transactions.
 It implements two monetary operations: 
-●	At regular intervals, it mints a new UBI for every user in the system. This is a fixed amount of each user’s self-issued currency, which is added to that user’s account.  Implementation detail (Andy): smart contracts cannot run scheduled jobs, they need to be initiated by an external trigger. The system could create the capability for the user to mint their UBI, which can happen at a later time whenever the smart contract is running. 
-●	It allows account holders to convert user currencies into group currencies, if the issuer of the user currency is a member of the group issuing the desired group currency.  Maybe blocked users should not be allowed to convert any user currency into group currency, even if the issuing user is still a member of the group.
-User
-●	Every Circles user is uniquely identified by their primary e-mail.
-●	A user has a user profile with additional information such as first name, last name, picture, and so on. 
-●	A user can authenticate through any of the authentication methods that they have enabled: 
-○	Native login, using their primary e-mail and a password. 
-○	Through their Google or Facebook account.
-○	Through uPort, a decentralized identity provider implemented on the Ethereum blockchain.
-●	Each user is an account holder, owning an account with zero or more currency balances. This also allows to create offers.
-●	Each user is an issuer of their own (user) currency.   This does not mean they can mint their own currency at will. Instead, a new amount of their currency is minted by the system at regular intervals, and added to the issuer’s account (= UBI).
-Organisation
-●	Every Circles organisation is uniquely identified by their name. 
-●	An organisation is initially created by a user. This user becomes the first administrator of the organisation. Subsequently, other users can be added as administrator. 
-●	An organisation belongs to a group. When a user creates the organisation, they can choose 
-○	to put it in any existing group that the creator is a member of, 
-○	or create a new group to contain the organisation (the user will then become the creator/first administrator of this group).
-●	An organisation has an organisation profile, containing additional information such as their website, email, and tagline. 
-●	An organisation is an account holder, owning an account with zero or more currency balances. This also allows to create offers. 
-●	Organisation administrators:  
-○	Can edit the organisation profile. 
-○	Can add or remove other users as administrator.  
-○	Can request or make payments, establish trust relations, and other actions associated with being an account holder, on the organisation’s behalf.
-○	Can move the organisation to another group. 
-■	This means that the default currency of the organisation will change into the new group currency. The system may propose to correctly convert any offer prices using the exchange rate between the group currencies.
-●	The actions of administrators can later be more finely controlled by adding systems such as (1) rights & permissions, (2) voting decisions and (3) time-delayed actions. For the MVP, we’ll leave this out. 
-●	An organisation is not an issuer, so they don’t have their own currency. (However, the group that contains an organisation is the issuer of the organisation’s default currency.) 
-●	An organisation does not receive a UBI.  
-●	An organisation cannot authenticate itself to perform actions; it is instead fully managed by its administrators, who can act on its behalf.
-Group
-●	Every Circles group is uniquely identified by their name.  
-●	Users can apply for group membership. After applying, a user becomes a member of a group as long as they satisfy all membership conditions for that group.  
-○	When they temporarily don’t satisfy any of the conditions, they cease to be a member for that period; they don’t need to reapply after satisfying the membership conditions again. 
-○	Examples of membership conditions could be:  
-■	Having a picture in the user profile.  
-■	Having a validated email address. 
-■	Having a facebook account linked to their user account. 
-■	Being manually approved by a group administrator. This last one is an especially important one because it’s a catchall for any offline requirements such as being identified in person.  
-●	A group can contain zero or more organisations. The organisations belonging to a group have the group currency as their default currency, and will price their offers in the group currency.
-●	If a user is a member of a group, 
-○	(1) their user currency can be converted into the group currency by any account holder owning that user currency (so, including but not limited to the user issuing the currency). 
-■	The exchange ratio is 1:1 for now. This may change in the future.
-■	Group currency cannot be converted back into user currency. This is unlikely to change in the future.
-■	Group currency cannot be converted in another group currency for now. This may or may not change in the future.
-○	(2) the user will be able to create organisations in that group. 
-●	A group is initially created by a user. This user becomes the first administrator of the group. Subsequently, other users can be added as administrator. 
-●	Group administrators 
-○	Can add or remove other users as administrator.  
-○	Can create, edit, and remove group membership conditions.  
-○	Can manually approve a membership condition of a user, for any of the group’s manual approval conditions. 
-○	Can block users from becoming members of the group, taking away their existing membership if they were approved before.  
-■	This prevents their issued currency to be converted into group currency.
-■	It may also prevent the blocked user from converting any currency into group currency (TBD).
-■	Question: should we also allow account holders to block particular issuers, as a kind of negative trust relation? 
-●	The actions of administrators can later be more finely controlled by adding systems such as (1) rights & permissions, (2) voting decisions and (3) time-delayed actions. For the MVP, we’ll leave this out. 
-●	A group is not an account holder. It does not own an account with currency balances. It cannot request or make payments, or create trust relations with other issuers.  
-●	A group does not receive a UBI. 
-●	A group cannot authenticate itself to perform actions; it is instead fully managed by its administrators, who can act on its behalf.
-●	Note: “market” might be an alternative term worth considering for groups.
-Account Holder
-●	An account holder is either a user or an organisation.  
-●	An account holder is identified by a human-readable identifier (string).  
+
+●	At regular intervals, it mints a new UBI for every user in the system. This is a fixed amount of each user’s self-issued currency, which is added to that user’s account. 
+Implementation detail (Andy): smart contracts cannot run scheduled jobs, they need to be initiated by an external trigger. The system could create the capability for the user to mint their UBI, which can happen at a later time whenever the smart contract is running. 
+
+●	It allows account holders to convert user currencies into group currencies, if the issuer of the user currency is a member of the group issuing the desired group currency. Maybe blocked users should not be allowed to convert any user currency into group currency, even if the issuing user is still a member of the group.
+
+[Social graph](#social)
+
+## Social graph
+●	The social graph of circles is a public datastore of weighted trust connections.
+
+● A trust connection is a triple, (Alice, Bob_coin, 24) : Account x Currency x Int, with the intended meaning that the account holder (Alice) is willing to exchange up to 24 units of the Bob_coin currency in exchange for the same amount of any currency that she owns over one time period.
+
+## Account Holder
+
+●	An account holder is either a user or an organisation. 
+●	An account holder is identified by a human-readable identifier (string). 
 ○	This identifier is used to easily identify the account holder when making a payment to that account holder, or when requesting a payment from them. 
-○	This identifier makes it easier for people to find account holder through the system’s search functionality.  
+○	This identifier makes it easier for people to find account holder through the system’s search functionality. 
 ○	An account holder can choose their own identifier, as long as it’s unique and complies to certain validation rules (length, allowed characters, …). 
-■	Note that this may pose a security threat, if someone uses an identifier that was until recently used by someone else. A restriction could be added, blocking account holders from reusing identifiers for some time, or indefinitly, to prevent this.  
+■	Note that this may pose a security threat, if someone uses an identifier that was until recently used by someone else. A restriction could be added, blocking account holders from reusing identifiers for some time, or indefinitly, to prevent this. 
 ●	An account holder is the owner of an account with zero or more currency balances.  
 ○	An account cannot have more than one balance for a given currency. 
 ○	A balance consists of the history of transactions that (1) the account holder has participated in, (2) transacting an amount of the balance’s currency. 
 ○	The balance bottom line can be calculated by adding up all transactions in its history.  Note: we could rename the term “bottom line” to “balance”, and use “ledger” or “account ledger” for the current “balance” term instead. 
 ●	An account holder owns the private key which corresponds to the public key of the account. 
 ●	An account holder H can choose to trust an issuer S (= create a trust relation to that issuer), meaning 
-○	that H agrees to accept S currency for payment 
+○	that H agrees to accept S currency for payment
 ○	that H agrees to mediate for payments in S currency to account holders that do not accept S currency themselves 
-■	Payment mediation means that H is willing to exchange S currency for other currencies that are accepted by the receiving account holder. 
-■	Note that we may need to restrict payment mediation to prevent the mediator from being drained of currencies that are widely trusted. 
+■	Payment mediation means that H is willing to exchange S currency for other currencies that are accepted by the receiving account holder.
+■	Note that we may need to restrict payment mediation to prevent the mediator from being drained of currencies that are widely trusted.
 ●	This can be by calculating an exchange rate based on the number of trust relations to S (indicating its value to the mediator),
 ○	What about sybil trust relations? I can create fake accounts just for the purpose of collecting more trust relations.
 ○	This could be solved by only counting common trust relations, or another metric expressing “closeness.”
@@ -101,6 +56,55 @@ such that the total exchanged value matches the required payment value.
 ●	An account holder has a default currency, which is the currency that they (1) prefer for receiving payments in, and (2) use to price their offers.
 ○	If the account holder is a user, the default currency is their user currency
 ○	If the account holder is an organisation, the default currency is the group currency of the containing group
+
+
+## Users
+
+●	Every Circles user is uniquely identified by their primary e-mail.
+
+●	A user has a user profile with additional information such as first name, last name, picture, and so on. 
+
+●	A user can authenticate through any of the authentication methods that they have enabled: 
+
+○	Native login, using their primary e-mail and a password. 
+
+○	Through their Google or Facebook account.
+
+○	Through uPort, a decentralized identity provider implemented on the Ethereum blockchain.
+
+●	Each user is an account holder, owning an account with zero or more currency balances. This also allows to create offers.
+
+●	Each user is an issuer of their own (user) currency. This does not mean they can mint their own currency at will. Instead, a new amount of their currency is minted by the system at regular intervals, and added to the issuer’s account (= UBI).
+Organisation
+
+## Organisations
+
+●	Every Circles organisation is uniquely identified by their name.
+
+●	An organisation is initially created by a user. This user becomes the first administrator of the organisation. Subsequently, 
+other users can be added as administrator.
+
+●	An organisation belongs to a group. When a user creates the organisation, they can choose 
+○	to put it in any existing group that the creator is a member of, 
+○	or create a new group to contain the organisation (the user will then become the creator/first administrator of this group).
+
+●	An organisation has an organisation profile, containing additional information such as their website, email, and tagline.
+
+●	An organisation is an account holder, owning an account with zero or more currency balances. This also allows to create offers.
+
+●	Organisation administrators: 
+
+○	Can edit the organisation profile.
+○	Can add or remove other users as administrator. 
+○	Can request or make payments, establish trust relations, and other actions associated with being an account holder, on the organisation’s behalf.
+○	Can move the organisation to another group. 
+
+■	This means that the default currency of the organisation will change into the new group currency. The system may propose to correctly convert any offer prices using the exchange rate between the group currencies.
+●	The actions of administrators can later be more finely controlled by adding systems such as (1) rights & permissions, (2) voting decisions and (3) time-delayed actions. For the MVP, we’ll leave this out. 
+●	An organisation is not an issuer, so they don’t have their own currency. (However, the group that contains an organisation is the issuer of the organisation’s default currency.) 
+●	An organisation does not receive a UBI.  
+●	An organisation cannot authenticate itself to perform actions; it is instead fully managed by its administrators, who can act on its behalf.
+
 Issuer
 ●	An issuer is either a user or a group.  
 ●	An issuer issues their own currency.  
