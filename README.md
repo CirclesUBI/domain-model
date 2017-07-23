@@ -5,13 +5,15 @@ Concepts in grey will not be included in the MVP version of the platform.
 ## Preliminaries
 Basic understanding about blockchains, in particular smart contract platforms like Ethereum
 ## System Overview
-The Circles system consists of [personal currencies](#personal-currencies), [account holders](#account-holder), [validators](#validators), and a [social graph](#social-graph), faciliated through a blockchain-linked application. Each user is associated with a unique, personal currency. At regular intervals, equal units of personal currency are created and added to the account of each user in the system. Users choose whose currency to accept by forming virtual relationships called [trust connections](#trust-connections). These connections also make longer paths of exchange possible, by serving as intermediary parties for [transitive transfers](#transitive-transfer). Account holders may also utilize validators to automatically trust the currencies validated by that validator. The entirety of the system's connections form the Circles social graph.
+The Circles system consists of [personal currencies](#personal-currencies), [account holders](#account-holder), [validators](#validators), and a [social graph](#social-graph), faciliated through a blockchain-linked application. Each user is associated with a unique, personal currency. At regular intervals, equal units of personal currency are created and added to the account of each user in the system. Users choose whose currency to accept by forming virtual relationships called [trust connections](#trust-connections). These connections also make longer paths of exchange possible by serving as intermediary parties for [transitive transfers](#transitive-transfer). Account holders may also utilize validators to automatically trust the currencies approved by that validator. The entirety of the system's connections form the Circles social graph.
 
 
 ## Social graph
-●	The social graph of circles is a public datastore of weighted trust connections.
+●	The social graph of circles is a public datastore of weighted trust connections and articulates the pathways through which funds may be exchanged.
 
-● A trust connection is a triple, (Alice, Bob_coin, 24) : Account x Currency x Int, with the intended meaning that the account holder (Alice) is willing to exchange up to 24 units of the Bob_coin currency in exchange for the same amount of any currency that she owns over one time period.
+## Trust connection
+
+● A trust connection is an expression of permission from a user to accept the currency of another user. Note that these relationships may not be mutual (e.g.: Alice accepts Bob's currency, but Bob does not accept hers) or equal (e.g.: Alice accepts Bob's currency unconditionally, but Bob only accepts 50 units for Alice's currency every week). A trust connection is also an expression of permission from one account holder to exchange units of their own currency in exchange for that of another account holder, as an intermediary party in a transitive transfer. Note that similarly, these relationships may also not be mutual or equal. Formally, a trust relationship is a triple, (Alice, Bob_coin, 24) : Account x Currency x Int, with the intended meaning that the account holder (Alice) is willing to exchange up to 24 units of the Bob_coin currency in exchange for the same amount of any currency that she owns over one time period.
 
 ## Personal currencies
 
