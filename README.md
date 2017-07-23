@@ -4,14 +4,9 @@ Old version: https://drive.google.com/open?id=0B-83nTx9NXI6TXg5azNlM3RBZ2s
 Concepts in grey will not be included in the MVP version of the platform.
 ## Preliminaries
 Basic understanding about blockchains, in particular smart contract platforms like Ethereum
-## System specification
-The Circles system consists of [personal currencies](#personal-currencies), [account holders](#account-holder) and a [social graph](#social-graph), as well as a blockchain with transactions.
-It implements two monetary operations: 
+## System Overview
+The Circles system consists of [personal currencies](#personal-currencies), [account holders](#account-holder), and [social graph](#social-graph), faciliated through a blockchain-linked application. Each user is associated with a unique, personal currency. At regular intervals, equal units of personal currency are created and added to the account of each user in the system. Users choose whose currency to accept by forming virtual relationships called [trust connections](#trust-connections). These connections also make longer paths of exchange possible, by serving as intermediary parties for [transitive transfers](#transitive-transfer).
 
-●	At regular intervals, it mints a new UBI for every user in the system. This is a fixed amount of each user’s self-issued currency, which is added to that user’s account. 
-Implementation detail (Andy): smart contracts cannot run scheduled jobs, they need to be initiated by an external trigger. The system could create the capability for the user to mint their UBI, which can happen at a later time whenever the smart contract is running. 
-
-●	It allows account holders to convert user currencies into group currencies, if the issuer of the user currency is a member of the group issuing the desired group currency. Maybe blocked users should not be allowed to convert any user currency into group currency, even if the issuing user is still a member of the group.
 
 ## Social graph
 ●	The social graph of circles is a public datastore of weighted trust connections.
