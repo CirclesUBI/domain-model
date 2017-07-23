@@ -13,10 +13,10 @@ The Circles system consists of [personal currencies](#personal-currencies), [acc
 
 ## Trust connection
 
-● A trust connection is an expression of permission from a user to accept the currency of another user. Note that these relationships may not be mutual (e.g.: Alice accepts Bob's currency, but Bob does not accept hers) or equal (e.g.: Alice accepts Bob's currency unconditionally, but Bob only accepts 50 units for Alice's currency every week). A trust connection is also an expression of permission from one account holder to exchange units of their own currency in exchange for that of another account holder, as an intermediary party in a transitive transfer. Note that similarly, these relationships may also not be mutual or equal. Formally, a trust relationship is a triple, (Alice, Bob_coin, 24) : Account x Currency x Int, with the intended meaning that the account holder (Alice) is willing to exchange up to 24 units of the Bob_coin currency in exchange for the same amount of any currency that she owns over one time period.
+● A trust connection is an expression of permission from an account holder to accept the currency of another account holder. Note that these relationships may not be mutual (e.g.: Alice accepts Bob's currency, but Bob does not accept hers) or equal (e.g.: Alice accepts Bob's currency unconditionally, but Bob only accepts 50 units for Alice's currency every week). A trust connection is also an expression of permission from one account holder to exchange units of their own currency in exchange for that of another account holder, as an intermediary party in a transitive transfer. Note that similarly, these relationships may also not be mutual or equal. Formally, a trust relationship is a triple, (Alice, Bob_coin, 24) : Account x Currency x Int, meaning that the account holder named Alice is willing - in a standardly defined time unit - to exchange up to 24 units of the personal currency of the account holder named Bob, in exchange for the same amount of any currency that her account holds.
 
 ## Personal currencies
-
+Circles creates a decentralized basic income that is universally distributed to all accounts simultaneously and equally in the form of personal currency. Each user is associated with a unique personal currency. An account holder can hold balances of multiple personal currencies. 
 
 ## Account Holder
 
