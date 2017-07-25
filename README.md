@@ -1,22 +1,28 @@
-# Domain Model Diagram
-Old version: https://drive.google.com/open?id=0B-83nTx9NXI6TXg5azNlM3RBZ2s 
+# Domain model
+Specification of the Circles protocol and associated terminology to serve as a guide for implementation.
 
-Concepts in grey will not be included in the MVP version of the platform.
+Old version of this document: https://drive.google.com/open?id=0B-83nTx9NXI6TXg5azNlM3RBZ2s 
+
+This document specifies the MVP, Ethereum backed, version of Circles, unless explicitly stated otherwise.
 ## Preliminaries
 Basic understanding about blockchains, in particular smart contract platforms like Ethereum
 ## System Overview
-The Circles system consists of [personal currencies](#personal-currencies), [account holders](#account-holder), [validators](#validators), and a [social graph](#social-graph), faciliated through a blockchain-linked application. Each user is associated with a unique, personal currency. At regular intervals, equal units of personal currency are created and added to the account of each user in the system. Users choose whose currency to accept by forming virtual relationships called [trust connections](#trust-connections). These connections also make longer paths of exchange possible by serving as intermediary parties for [transitive transfers](#transitive-transfer). Account holders may also utilize validators to automatically trust the currencies approved by that validator. The entirety of the system's connections form the Circles social graph.
+The Circles system consists of [account holders](#account-holder), [personal currencies](#personal-currencies), [validators](#validators), and a [social graph](#social-graph), faciliated through a blockchain-linked application. 
+Account holders are either organisations, or users, and each user is associated with a unique, personal currency. At regular intervals, equal amounts of personal currency are created and added to the account of each user in the system. 
+Users specify whose currency to accept by forming virtual relationships called [trust connections](#trust-connections). These connections also make longer paths of exchange possible by a mechamism called [transitive transfers](#transitive-transfer). 
+Account holders may also utilize validators to automatically trust the currencies approved by that validator. The entirety of the system's trust connections form the Circles social graph.
 
 
 ## Social graph
-●	The social graph of circles is a public datastore of weighted trust connections and articulates the pathways through which funds may be exchanged.
+The social graph of circles is a public datastore of weighted trust connections stored on the Ethereum blockchain which articulates the pathways through which funds may be exchanged.
 
 ## Trust connection
 
-● A trust connection is an expression of permission from an account holder to accept the currency of another account holder. Note that these relationships may not be mutual (e.g.: Alice accepts Bob's currency, but Bob does not accept hers) or equal (e.g.: Alice accepts Bob's currency unconditionally, but Bob only accepts 50 units for Alice's currency every week). A trust connection is also an expression of permission from one account holder to exchange units of their own currency in exchange for that of another account holder, as an intermediary party in a transitive transfer. Note that similarly, these relationships may also not be mutual or equal. Formally, a trust relationship is a triple, (Alice, Bob_coin, 24) : Account x Currency x Int, meaning that the account holder named Alice is willing - in a standardly defined time unit - to exchange up to 24 units of the personal currency of the account holder named Bob, in exchange for the same amount of any currency that her account holds.
+A trust connection is an expression of permission from an account holder to accept the currency of a user. Note that these relationships may not be mutual (e.g.: Alice accepts Bob's currency, but Bob does not accept hers) or equal (e.g.: Alice accepts Bob's currency unconditionally, but Bob only accepts 50 units for Alice's currency every week). A trust connection is also an expression of permission from one account holder to exchange units of any currency that they own in exchange for a specific currency, and thus serve as an intermediary party in a [transitive transfer](#transitive-transfer). 
+Formally, a trust relationship is a triple, (Alice, Bob_coin, 24) : Account x Currency x Int, meaning that the account holder named Alice is willing - in a standardly defined time unit - to exchange up to 24 units of the personal currency of the account holder named Bob, in exchange for the same amount of any currency that she holds.
 
 ## Personal currencies
-Circles creates a decentralized basic income that is universally distributed to all accounts simultaneously and equally in the form of personal currency. Each user is associated with a unique personal currency. An account holder can hold balances of multiple personal currencies. 
+Circles creates a decentralized basic income that is universally distributed to all accounts simultaneously and equally in the form of personal currency. Each user is associated with a unique personal currency, but in order to trade with other account holders a trust connection needs to be established. An account holder can hold balances of multiple personal currencies. 
 
 ## Account Holder
 
