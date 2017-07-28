@@ -9,7 +9,7 @@ Basic understanding about blockchains, in particular smart contract platforms li
 ## System Overview
 Circles is a block-chain based system consists of actors ([users](#users), [organizations](#organizations), and [validators](#validators)), [accounts](#account) (personal and organisational), [personal currencies](#personal-currencies), and a [social graph](#social-graph). Users interact with the Circles primarily through an application. 
 The base actor of the system is a user, which holds one personal account and is associated with one unique, personal currency. At regular intervals, equal amounts of personal currency are created and added to the personal account of each user in the system. One or more users can create an organization, which holds an account but is not associated with a specific currency. Users and organizations can also create Validators, which are likewise not associated with a specific currency.
-Actors specify whose currency to accept by forming virtual relationships called [trust connections](#trust-connections). These connections also make longer paths of exchange possible by a mechamism called [transitive transfer](#transitive-transfer). 
+Actors specify whose currency to accept by forming virtual relationships called [trust connections](#trust-connections). These connections also make indirect paths of exchange possible by a mechamism called [transitive transfer](#transitive-transfer). 
 Users and organizations create and utilize validators, which allow them to automatically trust all currencies approved by that validator. The entirety of the system's trust connections form the Circles social graph.
 
 
@@ -24,9 +24,15 @@ Formally, a trust relationship is a triple, (Alice, Bob_coin, 24) : Account x Cu
 ## Personal currencies
 Circles creates a decentralized basic income that is universally distributed to all user accounts simultaneously and equally in the form of personal currency. Each user is associated with one unique, personal currency. A user's currency may only be transfered to accounts that have accepted that specific currency through the establishment of a trust connection. Units of currency maintain their unique user association regardless of their location, meaning that a personal or organisational account can hold balances of multiple personal currencies (if Alice sends Bob 10 units of her currency, Bob's account now contains 10 Alice coins. If Bob then sends 5 of them to Joe, Joe has 5 Alice coins). 
 
+## Accounts
+
+An account is a container for one or more balances of currencies, held by an actor. This actor, whether a user, organization, or validator, owns the private key which corresponds to the public key of the account.
+
+An account's balances reflect the sum of all transactions in its history, with one overall balance and individual sub-balances for each type of currency (eg: Peter's account balance - 140 Circles: 30 Petercoins, 10 Wendycoins, 100 Tinkercoins). A summary of an account's history, a ledger of transactions that the account holder has participated in, is available to the actor holding the account.
+
 ## Actors
 
-Actors are entities involved with movement of currencies across the system. They can hold accounts and can trust, send, and receive currencies. Users, organizations, and validators are the actors within the Circles system - the only entities that may hold accounts.
+Actors are entities involved with the movement of currencies across the system. They can hold accounts and can trust, send, and receive currencies. Users, organizations, and validators are the actors within the Circles system - the only entities that may hold accounts.
 
 ●	An actor is identified by a human-readable identifier (string). 
 
@@ -34,17 +40,6 @@ Actors are entities involved with movement of currencies across the system. They
 
 ○	An actor can choose their own identifier, as long as it’s unique and complies to certain validation rules (length, allowed characters, …).
 
-■	Note that this may pose a security threat, if someone uses an identifier that was until recently used by someone else. A restriction could be added, blocking account holders from reusing identifiers for some time, or indefinitly, to prevent this. *CAN WE GET RID OF THIS? KIND OF OBVIOUS*
-
-## Accounts
-
-●	An account must be held by an actor, whether a user, organization, or validator. An account holder owns the private key which corresponds to the public key of the account.
-
-●	An account is a container for one or more balances of currencies.
-
-○	An account cannot have more than one balance for a given currency.
-
-○	An account's balances reflect the sum of all transactions in its history. A summary of this account history, a ledger of transactions that the account holder has participated in, is available to the actor holding the account.
 
 ■	Payment mediation means that H is willing to exchange S currency for other currencies that are accepted by the receiving account holder.
 
@@ -129,15 +124,8 @@ other users can be added as administrator.
 
 ○	Can request or make payments, establish trust relations, and other actions associated with being an account holder, on the organisation’s behalf.
 
-○	Can move the organisation to another group. 
-
-■	This means that the default currency of the organisation will change into the new group currency. The system may propose to correctly convert any offer prices using the exchange rate between the group currencies.
 
 ●	The actions of administrators can later be more finely controlled by adding systems such as (1) rights & permissions, (2) voting decisions and (3) time-delayed actions. For the MVP, we’ll leave this out. 
-
-●	An organisation is not an issuer, so they don’t have their own currency. (However, the group that contains an organisation is the issuer of the organisation’s default currency.) 
-
-●	An organisation does not receive a UBI.  
 
 ●	An organisation cannot authenticate itself to perform actions; it is instead fully managed by its administrators, who can act on its behalf.
 
@@ -148,7 +136,7 @@ other users can be added as administrator.
 
 ○	This does not mean that the issuer can create their currency at will. It needs to be minted as UBI by the system in case of a user, or converted from a user currency in case of a group. 
 
-○	A currency issued by a user, we call a user currency. A currency issued by a group, we call a group currency. 
+○	A currency issued to a user, we call a user currency. 
 
 ●	An issuer is trusted (not trusted) by an account holder if a trust relation from that account holder to the issuer exists (does not exist).
 
