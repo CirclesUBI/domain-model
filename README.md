@@ -18,7 +18,7 @@ The social graph of circles is a public datastore of weighted trust connections 
 
 ## Trust connection
 
-A trust connection is an expression of permission from an actor to accept a particular personal currency. Note that these relationships may not be mutual (e.g.: Alice accepts Bob's currency, but Bob does not accept hers) or equal (e.g.: Alice accepts Bob's currency unconditionally, but Bob only accepts 50 units for Alice's currency every week). "Acceptance" is not limited to receiving a particular currency as a one-way transfer into a specific account, but also for receiving that currency in exchange for any other currencies found in that account. Thus trust connections allow actors to serve as an intermediary parties in [transitive transfers](#transitive-transfer). 
+A trust connection is an expression of permission from an actor to accept a particular personal currency. Note that these relationships may not be mutual (e.g.: Alice accepts Bob's currency, but Bob does not accept hers) or equal (e.g.: Alice accepts Bob's currency unconditionally, but Bob only accepts 50 units for Alice's currency every week). "Acceptance" is not limited to receiving a particular currency as a one-way transfer into a specific account, but also for receiving that currency in exchange for any other currencies found in that account. Thus trust connections allow actors to serve as an intermediary parties in [transitive transfers](#transitive-transfer). Transitive transfers facilitate the deposit of currencies from one account to another when the recieving actor does not trust any currency currenty in the sender's account.
 Formally, a trust relationship is a triple, (Alice, Bob_coin, 24) : Account x Currency x Int, meaning that the account associated with user Alice is willing - in a standardly defined time unit - to exchange up to 24 units of the personal currency of the user named Bob, in exchange for the same amount of any currency that she holds.
 
 ## Personal currencies
@@ -38,22 +38,13 @@ Actors are entities involved with movement of currencies across the system. They
 
 ## Accounts
 
-●	An account is a container for one or more balances of currencies that is associated with a public and private key
+●	An account must be held by an actor, whether a user, organization, or validator. An account holder owns the private key which corresponds to the public key of the account.
 
-●	An account must be held by an actor, whether a user, organization, or validator. An account holder owns the private key which corresponds to the public key of the account. 
+●	An account is a container for one or more balances of currencies.
 
 ○	An account cannot have more than one balance for a given currency.
 
-○	A balance consists of the history of transactions that (1) the account holder has participated in, (2) transacting an amount of the balance’s currency.
-
-○	The balance bottom line can be calculated by adding up all transactions in its history.  Note: we could rename the term “bottom line” to “balance”, and use “ledger” or “account ledger” for the current “balance” term instead. 
-
-
-●	An account holder H can choose to trust an issuer S (= create a trust relation to that issuer), meaning 
-
-○	that H agrees to accept S currency for payment
-
-○	that H agrees to mediate for payments in S currency to account holders that do not accept S currency themselves 
+○	An account's balances reflect the sum of all transactions in its history. A summary of this account history, a ledger of transactions that the account holder has participated in, is available to the actor holding the account.
 
 ■	Payment mediation means that H is willing to exchange S currency for other currencies that are accepted by the receiving account holder.
 
@@ -94,10 +85,11 @@ such that the total exchanged value matches the required payment value.
 
 ○	If the account holder is an organisation, the default currency is the group currency of the containing group
 
+## TYPES OF ACTORS
 
 ## Users
 
-●	Every Circles user is uniquely identified by their primary e-mail.
+●	A user is a unique, individual actor identified by their primary e-mail.
 
 ●	A user has a user profile with additional information such as first name, last name, picture, and so on. 
 
@@ -109,7 +101,7 @@ such that the total exchanged value matches the required payment value.
 
 ○	Through uPort, a decentralized identity provider implemented on the Ethereum blockchain.
 
-●	Each user is an account holder, owning an account with zero or more currency balances. This also allows to create offers.
+●	Each user is an account holder, owning an account with zero or more currency balances.
 
 ●	Each user is an issuer of their own (user) currency. This does not mean they can mint their own currency at will. Instead, a new amount of their currency is minted by the system at regular intervals, and added to the issuer’s account (= UBI).
 Organisation
