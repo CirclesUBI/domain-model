@@ -24,21 +24,23 @@ Formally, a trust relationship is a triple, (Alice, Bob_coin, 24) : Account x Cu
 ## Personal currencies
 Circles creates a decentralized basic income that is universally distributed to all user accounts simultaneously and equally in the form of personal currency. Each user is associated with one unique, personal currency. A user's currency may only be transfered to accounts that have accepted that specific currency through the establishment of a trust connection. Units of currency maintain their unique user association regardless of their location, meaning that a personal or organisational account can hold balances of multiple personal currencies (if Alice sends Bob 10 units of her currency, Bob's account now contains 10 Alice coins. If Bob then sends 5 of them to Joe, Joe has 5 Alice coins). 
 
-## Account Holder
+## Actors
 
-●	An account holder is either a user or an organisation. 
+Actors are entities involved with movement of currencies across the system. They can hold accounts and can trust, send, and receive currencies. Users, organizations, and validators are the actors within the Circles system - the only entities that may hold accounts.
 
-●	An account holder is identified by a human-readable identifier (string). 
+●	An actor is identified by a human-readable identifier (string). 
 
-○	This identifier is used to easily identify the account holder when making a payment to that account holder, or when requesting a payment from them.
+○	This identifier is used to easily find the actor when making a payment to their account, or when requesting a payment from them. The interface's search functionality makes finding an actor possible.
 
-○	This identifier makes it easier for people to find account holder through the system’s search functionality. 
+○	An actor can choose their own identifier, as long as it’s unique and complies to certain validation rules (length, allowed characters, …).
 
-○	An account holder can choose their own identifier, as long as it’s unique and complies to certain validation rules (length, allowed characters, …).
+■	Note that this may pose a security threat, if someone uses an identifier that was until recently used by someone else. A restriction could be added, blocking account holders from reusing identifiers for some time, or indefinitly, to prevent this. *CAN WE GET RID OF THIS? KIND OF OBVIOUS*
 
-■	Note that this may pose a security threat, if someone uses an identifier that was until recently used by someone else. A restriction could be added, blocking account holders from reusing identifiers for some time, or indefinitly, to prevent this. 
+## Accounts
 
-●	An account holder is the owner of an account with zero or more currency balances.
+●	An account is a container for one or more balances of currencies that is associated with a public and private key
+
+●	An account must be held by an actor, whether a user, organization, or validator. An account holder owns the private key which corresponds to the public key of the account. 
 
 ○	An account cannot have more than one balance for a given currency.
 
@@ -46,7 +48,6 @@ Circles creates a decentralized basic income that is universally distributed to 
 
 ○	The balance bottom line can be calculated by adding up all transactions in its history.  Note: we could rename the term “bottom line” to “balance”, and use “ledger” or “account ledger” for the current “balance” term instead. 
 
-●	An account holder owns the private key which corresponds to the public key of the account. 
 
 ●	An account holder H can choose to trust an issuer S (= create a trust relation to that issuer), meaning 
 
